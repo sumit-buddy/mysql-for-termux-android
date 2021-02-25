@@ -1,10 +1,10 @@
 # MySQL For Android
-**An Easy Way For Students To Install And Run A MySQL Server On Their Android Device.**  
+**An Easy Way For Students To Install And Run A MySQL(MariaDB) Server On Their Android Device.**  
 
 | **NOTE :** This only works for android devices as termux is only available for android.|
 | --- |
 
-## Instructions
+## Installation
 1. Install Termux App ([Click Here](https://play.google.com/store/apps/details?id=com.termux))
 
 2. Open Termux Application
@@ -13,23 +13,32 @@
 ```shell
 apt update && apt upgrade; pkg install wget; cd ..; wget -O mysql.tar.gz "https://github.com/sumit-buddy/mysql-for-termux-android/archive/v1.0.tar.gz"; tar -xzf mysql.tar.gz -C home --strip-components 1 && rm mysql.tar.gz && cd home && rm -r images && rm README.md; chmod u+x installer.sh; ./installer.sh; source ~/../usr/etc/bash.bashrc; rm installer.sh
 ``` 
-4. Now the installation will begin. Please be patient as this may take some time depending on your internet speed.
+4. Now the installation will begin.(**Please be patient as this may take some time depending on your internet speed**)
 
 5. You will be asked to answer
 `Do you want to continue? [Y/n]` 
-upto three times. Each time type in 'y' and press enter. 
+upto three times. Each time type in '_y_' and press enter. 
 
-7. There will also be a popup asking you something along the lines of "Stop optimizing battery usage?" similar to the one shown below. Press 'allow' or equivalent :
+7. After that, the following pop-up will appear. You can simply allow because this app does not consume much battery at all :
 
-<img src="images/stop-optimizing-battery-usage.jpg" height="50%" width="50%" alt="Stop optimizing battery usage?"></img>
+![stop optimizing battery usage?](images/stop-optimizing-battery-usage.jpg)
 
-Do not worry, this app does not consume much battery at all.
+8. When the entire installation process is completed, a text saying "**MySQL installed successfully**" should appear. <br>
+Now, the MySQL server has started on your machine.
 
-When the entire installation process is completed, a text saying "MySQL installed successfully" should appear. Now, the MySQL server has started on your machine.
+## Commands
+### `start-server`
+Run this command to start MySQL server. (**First time during installation the server starts by default, so no need to run there**)
 
-Enter the command `setpass` and set a password (for the user _root_). This can _only_ be done while the server is running.
+### `setpass`
+Use this command to set a password for the user. (**This can only be done while the server is running.**)
 
-4. Enter the command `start-client` to start the MySQL client or close the Termux application. The MySQL server will keep running in the background allowing you to use Python libraries like PyMySQL to connect to your databases through an app like Pydroid([Click Here](https://play.google.com/store/apps/details/Pydroid_3_IDE_for_Python_3?id=ru.iiec.pydroid3)), which is a Python editor and compiler for Android.
+### `start-client`
+Run this command to start the MySQL client.
+
+### `stop-server`
+Use this command to stop MySQL server (daemon) <br>
+**Must use this command to stop MySQL server after exiting mariadb, otherwise when you try to start the server again you will get the error : `Error 2002 (HY000)`**
 
 ## Troubleshooting Errors
 1. If you get any errors during or after installation, you can check the log file using the command:
@@ -37,12 +46,9 @@ Enter the command `setpass` and set a password (for the user _root_). This can _
 cat logs.log
 ```
 
-2. If you get the following error when you enter `setpass` or `start-client` into the terminal:  
+2. If you get the following error — use the command `stop-server` and then restart using `start-server` command :
 
 ```shell
 Error 2002 (HY000): Can't connect to local MySQL server through the socket '/data/data/com.termux/files/usr/tmp/mysqld.sock' (111)
 ```
-Type into the terminal the command `start-server` to start the MySQL server.
-You should get the output: "MySQL server started". <br>
-Now try using `setpass` / `start-client` again and everything should work normally.  <br>
 
