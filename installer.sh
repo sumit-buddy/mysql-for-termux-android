@@ -7,7 +7,7 @@ echologs()
 
 echo -n "" > logs.log
 
-for name in setpass start-server start-client
+for name in setpass start-server start-client stop-server
 do
 	chmod u+x "${name}.sh" &&
 	echologs "Made '${name}.sh' executable successfully" ||
